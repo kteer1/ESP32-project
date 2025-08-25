@@ -1,0 +1,12 @@
+{
+  "C_Cpp.intelliSenseEngine": "default",
+  "idf.openOcdConfigs": [
+    "board/esp32s3-builtin.cfg"
+  ],
+  "idf.customExtraVars": {
+    "OPENOCD_SCRIPTS": "g:\\Kteer_project\\Kteer_project\\ESP32\\ESP_IDF\\sdk\\tools\\openocd-esp32\\v0.12.0-esp32-20240821/openocd-esp32/share/openocd/scripts",
+    "IDF_CCACHE_ENABLE": "1",
+    "ESP_ROM_ELF_DIR": "g:\\Kteer_project\\Kteer_project\\ESP32\\ESP_IDF\\sdk\\tools\\esp-rom-elfs\\20230320/",
+    "IDF_TARGET": "esp32s3"
+  }
+}
