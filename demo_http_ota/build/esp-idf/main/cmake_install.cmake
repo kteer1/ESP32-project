@@ -1,4 +1,4 @@
-# Install script for directory: G:/Kteer_project/Kteer_project/ESP32_project/demo_http_ota/main
+# Install script for directory: G:/Kteer_project/Kteer_project/ESP32-project/demo_http_ota/main
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

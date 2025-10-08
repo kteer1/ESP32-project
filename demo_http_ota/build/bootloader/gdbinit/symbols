@@ -17,4 +17,4 @@ set confirm off
 set confirm on
 
 # Load application symbols
-file G:/Kteer_project/Kteer_project/ESP32_project/demo_http_ota/build/bootloader/bootloader.elf
+file G:/Kteer_project/Kteer_project/ESP32-project/demo_http_ota/build/bootloader/bootloader.elf

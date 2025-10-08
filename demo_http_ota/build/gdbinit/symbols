@@ -13,8 +13,8 @@ end
 
 # Load bootloader symbols
 set confirm off
-    add-symbol-file G:/Kteer_project/Kteer_project/ESP32_project/demo_http_ota/build/bootloader/bootloader.elf
+    add-symbol-file G:/Kteer_project/Kteer_project/ESP32-project/demo_http_ota/build/bootloader/bootloader.elf
 set confirm on
 
 # Load application symbols
-file G:/Kteer_project/Kteer_project/ESP32_project/demo_http_ota/build/main.elf
+file G:/Kteer_project/Kteer_project/ESP32-project/demo_http_ota/build/main.elf

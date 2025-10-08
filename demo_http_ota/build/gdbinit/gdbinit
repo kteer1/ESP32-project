@@ -1,2 +1,2 @@
-source G:/Kteer_project/Kteer_project/ESP32_project/demo_http_ota/build/gdbinit/symbols
-source G:/Kteer_project/Kteer_project/ESP32_project/demo_http_ota/build/gdbinit/connect
+source G:/Kteer_project/Kteer_project/ESP32-project/demo_http_ota/build/gdbinit/symbols
+source G:/Kteer_project/Kteer_project/ESP32-project/demo_http_ota/build/gdbinit/connect

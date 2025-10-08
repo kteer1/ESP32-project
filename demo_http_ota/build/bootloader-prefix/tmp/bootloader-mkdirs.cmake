@@ -10,18 +10,18 @@ if(NOT EXISTS "G:/Kteer_project/Kteer_project/ESP32/ESP_IDF_V5_4_1/v5.4.1/esp-id
   file(MAKE_DIRECTORY "G:/Kteer_project/Kteer_project/ESP32/ESP_IDF_V5_4_1/v5.4.1/esp-idf/components/bootloader/subproject")
 endif()
 file(MAKE_DIRECTORY
-  "G:/Kteer_project/Kteer_project/ESP32_project/demo_http_ota/build/bootloader"
-  "G:/Kteer_project/Kteer_project/ESP32_project/demo_http_ota/build/bootloader-prefix"
-  "G:/Kteer_project/Kteer_project/ESP32_project/demo_http_ota/build/bootloader-prefix/tmp"
-  "G:/Kteer_project/Kteer_project/ESP32_project/demo_http_ota/build/bootloader-prefix/src/bootloader-stamp"
-  "G:/Kteer_project/Kteer_project/ESP32_project/demo_http_ota/build/bootloader-prefix/src"
-  "G:/Kteer_project/Kteer_project/ESP32_project/demo_http_ota/build/bootloader-prefix/src/bootloader-stamp"
+  "G:/Kteer_project/Kteer_project/ESP32-project/demo_http_ota/build/bootloader"
+  "G:/Kteer_project/Kteer_project/ESP32-project/demo_http_ota/build/bootloader-prefix"
+  "G:/Kteer_project/Kteer_project/ESP32-project/demo_http_ota/build/bootloader-prefix/tmp"
+  "G:/Kteer_project/Kteer_project/ESP32-project/demo_http_ota/build/bootloader-prefix/src/bootloader-stamp"
+  "G:/Kteer_project/Kteer_project/ESP32-project/demo_http_ota/build/bootloader-prefix/src"
+  "G:/Kteer_project/Kteer_project/ESP32-project/demo_http_ota/build/bootloader-prefix/src/bootloader-stamp"
 )
 
 set(configSubDirs )
 foreach(subDir IN LISTS configSubDirs)
-    file(MAKE_DIRECTORY "G:/Kteer_project/Kteer_project/ESP32_project/demo_http_ota/build/bootloader-prefix/src/bootloader-stamp/${subDir}")
+    file(MAKE_DIRECTORY "G:/Kteer_project/Kteer_project/ESP32-project/demo_http_ota/build/bootloader-prefix/src/bootloader-stamp/${subDir}")
 endforeach()
 if(cfgdir)
-  file(MAKE_DIRECTORY "G:/Kteer_project/Kteer_project/ESP32_project/demo_http_ota/build/bootloader-prefix/src/bootloader-stamp${cfgdir}") # cfgdir has leading slash
+  file(MAKE_DIRECTORY "G:/Kteer_project/Kteer_project/ESP32-project/demo_http_ota/build/bootloader-prefix/src/bootloader-stamp${cfgdir}") # cfgdir has leading slash
 endif()

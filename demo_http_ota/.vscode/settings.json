@@ -8,5 +8,11 @@
     "IDF_CCACHE_ENABLE": "1",
     "ESP_ROM_ELF_DIR": "g:\\Kteer_project\\Kteer_project\\ESP32\\ESP_IDF\\sdk\\tools\\esp-rom-elfs\\20230320/",
     "IDF_TARGET": "esp32s3"
-  }
+  },
+  "files.associations": {
+    "stdint.h": "c",
+    "stdio.h": "c"
+  },
+  "idf.flashType": "UART",
+  "idf.portWin": "COM8"
 }

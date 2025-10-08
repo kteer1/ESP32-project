@@ -1,4 +1,4 @@
-/* * Data converted from G:/Kteer_project/Kteer_project/ESP32_project/demo_http_ota/build/esp-idf/mbedtls/x509_crt_bundle
+/* * Data converted from G:/Kteer_project/Kteer_project/ESP32-project/demo_http_ota/build/esp-idf/mbedtls/x509_crt_bundle
  */
 .data
 #if !defined (__APPLE__) && !defined (__linux__)

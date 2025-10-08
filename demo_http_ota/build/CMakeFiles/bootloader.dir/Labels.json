@@ -2,34 +2,34 @@
 	"sources" : 
 	[
 		{
-			"file" : "G:/Kteer_project/Kteer_project/ESP32_project/demo_http_ota/build/CMakeFiles/bootloader"
+			"file" : "G:/Kteer_project/Kteer_project/ESP32-project/demo_http_ota/build/CMakeFiles/bootloader"
 		},
 		{
-			"file" : "G:/Kteer_project/Kteer_project/ESP32_project/demo_http_ota/build/CMakeFiles/bootloader.rule"
+			"file" : "G:/Kteer_project/Kteer_project/ESP32-project/demo_http_ota/build/CMakeFiles/bootloader.rule"
 		},
 		{
-			"file" : "G:/Kteer_project/Kteer_project/ESP32_project/demo_http_ota/build/CMakeFiles/bootloader-complete.rule"
+			"file" : "G:/Kteer_project/Kteer_project/ESP32-project/demo_http_ota/build/CMakeFiles/bootloader-complete.rule"
 		},
 		{
-			"file" : "G:/Kteer_project/Kteer_project/ESP32_project/demo_http_ota/build/bootloader-prefix/src/bootloader-stamp/bootloader-build.rule"
+			"file" : "G:/Kteer_project/Kteer_project/ESP32-project/demo_http_ota/build/bootloader-prefix/src/bootloader-stamp/bootloader-build.rule"
 		},
 		{
-			"file" : "G:/Kteer_project/Kteer_project/ESP32_project/demo_http_ota/build/bootloader-prefix/src/bootloader-stamp/bootloader-configure.rule"
+			"file" : "G:/Kteer_project/Kteer_project/ESP32-project/demo_http_ota/build/bootloader-prefix/src/bootloader-stamp/bootloader-configure.rule"
 		},
 		{
-			"file" : "G:/Kteer_project/Kteer_project/ESP32_project/demo_http_ota/build/bootloader-prefix/src/bootloader-stamp/bootloader-download.rule"
+			"file" : "G:/Kteer_project/Kteer_project/ESP32-project/demo_http_ota/build/bootloader-prefix/src/bootloader-stamp/bootloader-download.rule"
 		},
 		{
-			"file" : "G:/Kteer_project/Kteer_project/ESP32_project/demo_http_ota/build/bootloader-prefix/src/bootloader-stamp/bootloader-install.rule"
+			"file" : "G:/Kteer_project/Kteer_project/ESP32-project/demo_http_ota/build/bootloader-prefix/src/bootloader-stamp/bootloader-install.rule"
 		},
 		{
-			"file" : "G:/Kteer_project/Kteer_project/ESP32_project/demo_http_ota/build/bootloader-prefix/src/bootloader-stamp/bootloader-mkdir.rule"
+			"file" : "G:/Kteer_project/Kteer_project/ESP32-project/demo_http_ota/build/bootloader-prefix/src/bootloader-stamp/bootloader-mkdir.rule"
 		},
 		{
-			"file" : "G:/Kteer_project/Kteer_project/ESP32_project/demo_http_ota/build/bootloader-prefix/src/bootloader-stamp/bootloader-patch.rule"
+			"file" : "G:/Kteer_project/Kteer_project/ESP32-project/demo_http_ota/build/bootloader-prefix/src/bootloader-stamp/bootloader-patch.rule"
 		},
 		{
-			"file" : "G:/Kteer_project/Kteer_project/ESP32_project/demo_http_ota/build/bootloader-prefix/src/bootloader-stamp/bootloader-update.rule"
+			"file" : "G:/Kteer_project/Kteer_project/ESP32-project/demo_http_ota/build/bootloader-prefix/src/bootloader-stamp/bootloader-update.rule"
 		}
 	],
 	"target" : 
