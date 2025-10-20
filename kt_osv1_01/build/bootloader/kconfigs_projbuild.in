@@ -1,0 +1,5 @@
+source "G:/Kteer_project/Kteer_project/ESP32/ESP_IDF_V5_4_1/v5.4.1/esp-idf/components/bootloader/Kconfig.projbuild"
+source "G:/Kteer_project/Kteer_project/ESP32/ESP_IDF_V5_4_1/v5.4.1/esp-idf/components/esp_app_format/Kconfig.projbuild"
+source "G:/Kteer_project/Kteer_project/ESP32/ESP_IDF_V5_4_1/v5.4.1/esp-idf/components/esp_rom/Kconfig.projbuild"
+source "G:/Kteer_project/Kteer_project/ESP32/ESP_IDF_V5_4_1/v5.4.1/esp-idf/components/esptool_py/Kconfig.projbuild"
+source "G:/Kteer_project/Kteer_project/ESP32/ESP_IDF_V5_4_1/v5.4.1/esp-idf/components/partition_table/Kconfig.projbuild"

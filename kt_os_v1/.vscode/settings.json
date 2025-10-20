@@ -1,3 +1,41 @@
 {
-  "C_Cpp.intelliSenseEngine": "default"
+  "C_Cpp.intelliSenseEngine": "default",
+  "files.associations": {
+    "random": "c",
+    "lcd_drive_type.h": "c",
+    "esp_lcd_touch.h": "c",
+    "spi_master.h": "c",
+    "esp_log.h": "c",
+    "lv_conf.h": "c",
+    "esp_check.h": "c",
+    "task.h": "c",
+    "lvgl.h": "c",
+    "lvgl_porting.h": "c",
+    "lcd_drive.h": "c",
+    "i2c_master.h": "c",
+    "tca9554.h": "c",
+    "format": "c",
+    "esp_lcd_touch_ft5x06.h": "c",
+    "esp_lcd_sh8601.h": "c",
+    "array": "c",
+    "string": "c",
+    "string_view": "c",
+    "span": "c",
+    "i2c.h": "c",
+    "esp_lcd_panel_vendor.h": "c",
+    "esp_lcd_panel_dev.h": "c",
+    "iic_drive.h": "c",
+    "esp_timer.h": "c"
+  },
+  "idf.openOcdConfigs": [
+    "board/esp32s3-builtin.cfg"
+  ],
+  "idf.customExtraVars": {
+    "OPENOCD_SCRIPTS": "g:\\Kteer_project\\Kteer_project\\ESP32\\ESP_IDF\\sdk\\tools\\openocd-esp32\\v0.12.0-esp32-20240821/openocd-esp32/share/openocd/scripts",
+    "IDF_CCACHE_ENABLE": "1",
+    "ESP_ROM_ELF_DIR": "g:\\Kteer_project\\Kteer_project\\ESP32\\ESP_IDF\\sdk\\tools\\esp-rom-elfs\\20230320/",
+    "IDF_TARGET": "esp32s3"
+  },
+  "idf.portWin": "COM8",
+  "idf.flashType": "UART"
 }
