@@ -6,6 +6,7 @@
 #include "driver/i2c_types.h"
 #include "driver/i2c_master.h"
 #include "driver/spi_master.h"
+// #include "esp_driver_i2c/i2c_private.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 
@@ -17,6 +18,10 @@
 #include "drive/Disp/SH8601/esp_lcd_sh8601.h"
 #include "drive/Touch/FT5x06/ft5x06.h"
 
+typedef struct{
+    void *drive_bus;
+    void *drive_io;
+}lv_iodrive_t;
 
 
 static void disp_flush(lv_disp_drv_t * disp_drv, const lv_area_t * area, lv_color_t * color_p);
@@ -147,7 +152,10 @@ void lvgl_porting_init(void* param)
     esp_lcd_panel_init(panel_handle);
     esp_lcd_panel_disp_on_off(panel_handle,true);
 
-    indev_drv.user_data = dev_handle;
+    lv_iodrive_t* lv_io_t = calloc(1,sizeof(lv_iodrive_t));
+    lv_io_t->drive_bus = bus_handle;
+    lv_io_t->drive_io = dev_handle;
+    indev_drv.user_data = lv_io_t;
     lv_indev_drv_register(&indev_drv);
     Touch_DevInit(indev_drv.user_data);
 
@@ -173,10 +181,12 @@ static bool example_spi_notify_ready(esp_lcd_panel_io_handle_t panel_io, esp_lcd
 static void Touch_DevInit(void* param)
 {
     esp_err_t ret = ESP_OK;
-    i2c_master_dev_handle_t fstruct_dev = (i2c_master_dev_handle_t)param;
-
+    lv_iodrive_t* fstruct_io_t = (lv_iodrive_t*)param;
+    i2c_master_dev_handle_t fstruct_dev = (i2c_master_dev_handle_t)fstruct_io_t->drive_io;
+    i2c_master_bus_handle_t fstruct_bus = (i2c_master_bus_handle_t)fstruct_io_t->drive_bus;
 
     ESP_LOGI(TAG,"Touch_DevInit...");
+    i2c_master_bus_wait_all_done(fstruct_bus,-1);
     do{
             ret = i2c_master_transmit(fstruct_dev, (uint8_t[]){FT5x06_ID_G_THGROUP, 70},2,-1);// Valid touching detect threshold
             ret = i2c_master_transmit(fstruct_dev, (uint8_t[]){FT5x06_ID_G_THPEAK, 60},2,-1);// valid touching peak detect threshold
@@ -201,16 +211,28 @@ static void Touch_DevInit(void* param)
 static void touchpad_read(lv_indev_drv_t * indev_drv, lv_indev_data_t * data)
 {
 
-    i2c_master_dev_handle_t fstruct_dev = (i2c_master_dev_handle_t)(indev_drv->user_data);
+    lv_iodrive_t* fstruct_io_t = (lv_iodrive_t*)indev_drv->user_data;
+    i2c_master_dev_handle_t fstruct_dev = (i2c_master_dev_handle_t)fstruct_io_t->drive_io;
     unsigned int tp_x=0;
     unsigned int tp_y=0;
     unsigned char tp_cnt=0;
     unsigned char tp_press = 0;  
     /**获取 触摸点数 触摸点的坐标 */
     uint8_t f_points_data[4];
+    esp_err_t ret;
     /**读取点数 */
-    i2c_master_transmit_receive(fstruct_dev,(uint8_t[]){FT5x06_TOUCH_POINTS},1,&tp_cnt,1,-1);
-    i2c_master_transmit_receive(fstruct_dev,(uint8_t[]){FT5x06_TOUCH1_XH},1,f_points_data,4,-1);
+    ret = i2c_master_transmit_receive(fstruct_dev,(uint8_t[]){FT5x06_TOUCH_POINTS},1,&tp_cnt,1,-1);
+    if(ret!= ESP_OK)
+    {
+        ESP_LOGI(TAG,"lvgl touch error...1");
+        return ;
+    }
+    ret = i2c_master_transmit_receive(fstruct_dev,(uint8_t[]){FT5x06_TOUCH1_XH},1,f_points_data,4,-1);
+    if(ret!= ESP_OK)
+    {
+        ESP_LOGI(TAG,"lvgl touch error...2");
+        return ;
+    }
     (tp_x) = (((uint16_t)f_points_data[0] & 0x0f) << 8) + f_points_data[1];
     (tp_y) = (((uint16_t)f_points_data[2] & 0x0f) << 8) + f_points_data[3];
     if(tp_cnt>0)

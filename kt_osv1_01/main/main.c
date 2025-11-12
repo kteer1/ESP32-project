@@ -6,23 +6,29 @@
 
 void app_bspinit(void)
 {
+    
     esp_err_t ret = nvs_flash_init();
     if (ret == ESP_ERR_NVS_NO_FREE_PAGES || ret == ESP_ERR_NVS_NEW_VERSION_FOUND) {
       ESP_ERROR_CHECK(nvs_flash_erase());
       ret = nvs_flash_init();
     }
+    ESP_ERROR_CHECK(esp_netif_init());
+    ESP_ERROR_CHECK(esp_event_loop_create_default());
 }
 
 
 
 void app_main(void)
 {
-    container_of();
+    
     vTaskDelay(200/portTICK_PERIOD_MS);
+    
     app_bspinit();
+    kWIFI_Init();
     IOExpander_Init();
     xTaskCreatePinnedToCore(lvgl_app,"lvgl_app",(1024*20),NULL,10,NULL,0);
-    IMUporting_Init();
+    // IMUporting_Init();
+    imu_init(NULL);
     while(1)
     {
         vTaskDelay(1000/portTICK_PERIOD_MS);

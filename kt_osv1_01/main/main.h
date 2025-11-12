@@ -6,7 +6,8 @@
 
 #include "../Component/LVGL/lvgl_app.h"
 #include "../Component/IO_Expander/io_expander.h"
-#include "../Component/Six_Axis_IMU/porting/imu_porting.h"
+#include "../Component/Sensor/IMU/imu.h"
+#include "../Component/WIFI/kwifi.h"
 
 #endif // MAIN_H
 

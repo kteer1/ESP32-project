@@ -3,6 +3,9 @@
 
 
 
+
+void imu_init(void*param);
+
 #endif // IMU_H
 
 
