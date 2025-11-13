@@ -33,7 +33,8 @@
     "esp_lcd_sh8601.h": "c",
     "imu_porting.h": "c",
     "imu_bsp.h": "c",
-    "qmi8658c.h": "c"
+    "qmi8658c.h": "c",
+    "cstdint": "c"
   },
   "idf.openOcdConfigs": [
     "board/esp32s3-builtin.cfg"

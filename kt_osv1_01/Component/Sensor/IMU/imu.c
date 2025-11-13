@@ -6,104 +6,64 @@
 
 typedef struct{
     uint8_t id;
-    uint32_t state;
-
+    uint8_t state;
+    uint16_t acc_data[3];
+    uint16_t gry_data[3];
     sensor_panel_t* panel;
 }Sensor_qmi8658c_t;
 
 
 static void IMU_QMI8658TaskHandle(void*param);
-static void QMI8658C_ReadID(void*param);
-static void QMI8658C_ReadStatus(void*param);
-sensor_panel_t* qmi8568c_panel;
+static void QMI8658C_ReadAccandGry(void*param);
+Sensor_qmi8658c_t qmi8658_cfg_t={0};
 void imu_init(void*param)
 {
-    qmi8568c_panel = IMUporting_Init(NULL);
-    xTaskCreatePinnedToCore(IMU_QMI8658TaskHandle,"IMU_QMI8658TaskHandle",(1024*10),NULL,10,NULL,0);
+    qmi8658_cfg_t.panel = IMUporting_Init(NULL);
+
+    qmi8658_cfg_t.panel->reset(qmi8658_cfg_t.panel);
+    vTaskDelay(20/portTICK_PERIOD_MS);
+    qmi8658_cfg_t.panel->init(qmi8658_cfg_t.panel);
+
+    // Sensor_qmi8658c_t s_qmi8658_t={0};
+    // qmi8568c_panel->transmit_receive(qmi8568c_panel,(uint8_t[]){QMI8658C_REG_WHO_AM_I},1,&s_qmi8658_t.id,1);
+    // ESP_LOGI("imu","QMI8658C_REG_WHO_AM_I=0x%02x",s_qmi8658_t.id);
+    xTaskCreatePinnedToCore(IMU_QMI8658TaskHandle,"IMU_QMI8658TaskHandle",(1024*10),&qmi8658_cfg_t,10,NULL,0);
 }
 
 
 
 static void IMU_QMI8658TaskHandle(void*param)
 {
-    Sensor_qmi8658c_t* qmi8658c_data_t = calloc(1,sizeof(Sensor_qmi8658c_t));
-    qmi8658c_data_t->panel = qmi8568c_panel;
-    qmi8658c_data_t->panel->init(qmi8658c_data_t->panel);
-    QMI8658C_ReadID(qmi8658c_data_t);
+    Sensor_qmi8658c_t* qmi8568c_panel = (Sensor_qmi8658c_t*)param;
+    qmi8568c_panel->panel->transmit_receive(qmi8568c_panel->panel,(uint8_t[]){QMI8658C_REG_WHO_AM_I},1,&qmi8568c_panel->id,1);
+    ESP_LOGI("imu","QMI8658C_REG_WHO_AM_I=0x%02x",qmi8568c_panel->id);
     while(1)
     {
-        vTaskDelay(1000/portTICK_PERIOD_MS);
-        QMI8658C_ReadStatus(qmi8658c_data_t);
+        vTaskDelay(600/portTICK_PERIOD_MS);
+        QMI8658C_ReadAccandGry(qmi8568c_panel);
     }
 }
 
-static void QMI8658C_ReadID(void*param)
-{
-    Sensor_qmi8658c_t* sensor_struct = (Sensor_qmi8658c_t*)param;
-    sensor_cmd_t qmi8568_cmd_t={
-        .cmd_state = 0,
-        .cmd = NULL,
-        .cmd_bytes=0,
-        .data=NULL,
-        .data_bytes=0,
-        .delay_ms=100,
-    };
-
-    /**配置传输参数 */
-    qmi8568_cmd_t.cmd_bytes = 1;
-    unsigned char*qmi8658_cmd_data_list = calloc(qmi8568_cmd_t.cmd_bytes,sizeof(unsigned char));
-    qmi8568_cmd_t.data_bytes = 2;
-    unsigned char*qmi8658_data_data_list = calloc(qmi8568_cmd_t.data_bytes,sizeof(unsigned char));
-
-    qmi8658_cmd_data_list[0] = QMI8658C_REG_WHO_AM_I;
-    qmi8568_cmd_t.cmd = qmi8658_cmd_data_list;
-    qmi8568_cmd_t.data = qmi8658_data_data_list;
-    // /*传输读取寄存器数据*/
-    sensor_struct->panel->transmit_receive(sensor_struct->panel,&qmi8568_cmd_t);
-    ESP_LOGI("imu.h","QMI8658C_REG_WHO_AM_I=0x%02x,QMI8658C_REG_REVISION_ID=0x%02x",qmi8568_cmd_t.data[0],qmi8568_cmd_t.data[1]);
-    sensor_struct->id = qmi8568_cmd_t.data[0];
-
-    // /*清除*/
-    free(qmi8658_cmd_data_list);
-    free(qmi8658_data_data_list);
-}
 
 static void QMI8658C_ReadAccandGry(void*param)
 {
-    Sensor_qmi8658c_t* sensor_struct = (Sensor_qmi8658c_t*)param;
-    sensor_cmd_t qmi8568_cmd_t={
-        .cmd_state = 0,
-        .cmd = NULL,
-        .cmd_bytes=0,
-        .data=NULL,
-        .data_bytes=0,
-        .delay_ms=100,
-    };
-    /**配置传输参数 */
-    qmi8568_cmd_t.cmd_bytes = 1;
-    unsigned char*qmi8658_cmd_data_list = calloc(qmi8568_cmd_t.cmd_bytes,sizeof(unsigned char));
-    qmi8568_cmd_t.data_bytes = 12;
-    unsigned char*qmi8658_data_data_list = calloc(qmi8568_cmd_t.data_bytes,sizeof(unsigned char));
+    Sensor_qmi8658c_t* qmi8568c_panel = (Sensor_qmi8658c_t*)param;
 
-    qmi8658_cmd_data_list[0] = QMI8658C_REG_STATUS0;
-    qmi8568_cmd_t.cmd = qmi8658_cmd_data_list;
-    qmi8568_cmd_t.data = qmi8658_data_data_list;
-    /*传输读取寄存器数据*/
-    sensor_struct->panel->transmit_receive(sensor_struct->panel,&qmi8568_cmd_t);
-    
+    uint8_t f_data_s[12]={0};
 
+    qmi8568c_panel->panel->transmit_receive(qmi8568c_panel->panel,(uint8_t[]){QMI8658C_REG_STATUS0},1,&qmi8568c_panel->state,1);
+    ESP_LOGI("imu","QMI8658C_REG_STATUS0=0x%02x",qmi8568c_panel->state);
 
+    if(qmi8568c_panel->state & 0x03)
+    {
+        qmi8568c_panel->panel->transmit_receive(qmi8568c_panel->panel,(uint8_t[]){QMI8658C_REG_AX_L},1,f_data_s,12);
+        ESP_LOGI("imu","QMI8658C_REG_AX_L=0x%02x,QMI8658C_REG_AX_H=0x%02x",f_data_s[0],f_data_s[1]);
+        ESP_LOGI("imu","QMI8658C_REG_AY_L=0x%02x,QMI8658C_REG_AY_H=0x%02x",f_data_s[2],f_data_s[3]);
+        ESP_LOGI("imu","QMI8658C_REG_AZ_L=0x%02x,QMI8658C_REG_AZ_H=0x%02x",f_data_s[4],f_data_s[5]);
+        
+        ESP_LOGI("imu","QMI8658C_REG_GX_L=0x%02x,QMI8658C_REG_GX_H=0x%02x",f_data_s[6],f_data_s[7]);
+        ESP_LOGI("imu","QMI8658C_REG_GY_L=0x%02x,QMI8658C_REG_GY_H=0x%02x",f_data_s[8],f_data_s[9]);
+        ESP_LOGI("imu","QMI8658C_REG_GZ_L=0x%02x,QMI8658C_REG_GZ_H=0x%02x",f_data_s[10],f_data_s[11]);
+    }
 
-
-
-
-
-
-
-
-    // /*清除*/
-    free(qmi8658_cmd_data_list);
-    free(qmi8658_data_data_list);
 }
-
-// static void QMI8658C_Read

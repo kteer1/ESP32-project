@@ -15,19 +15,22 @@
         })
 #endif
 
-enum sensor_cmd_status_e{
-    sensor_cmd_write = 0,
-    sensor_cmd_read,
-};
+// enum sensor_cmd_status_e{
+//     sensor_cmd_write = 0,
+//     sensor_cmd_read,
+// };
 
-typedef struct {
-    int cmd_state;
-    unsigned char*cmd;
-    uint16_t cmd_bytes;      /*<! Size of `data` in memory, in bytes */
-    unsigned char *data;       /*<! Buffer that holds the command specific data */
-    uint16_t data_bytes;      /*<! Size of `data` in memory, in bytes */
-    unsigned int delay_ms;  /*<! Delay in milliseconds after this command */
-} sensor_cmd_t;
+// typedef struct {
+//     int cmd_state;
+//     unsigned char*cmd;
+//     uint16_t cmd_bytes;      /*<! Size of `data` in memory, in bytes */
+//     unsigned char *data;       /*<! Buffer that holds the command specific data */
+//     uint16_t data_bytes;      /*<! Size of `data` in memory, in bytes */
+//     unsigned int delay_ms;  /*<! Delay in milliseconds after this command */
+// } sensor_cmd_t;
+
+typedef unsigned char  sensor_size_t;
+typedef unsigned char  sensor_len_t;
 
 typedef struct _sensor_panel_t sensor_panel_t;
 struct _sensor_panel_t{
@@ -67,7 +70,7 @@ struct _sensor_panel_t{
      * @param[in] xfer_timeout_ms Wait timeout, in ms. Note: -1 means wait forever.
      * @return
      */
-    void (*transmit)(sensor_panel_t *panel,const sensor_cmd_t* sensor_cmd);
+    void (*transmit)(sensor_panel_t *panel,const sensor_size_t* sensor_cmd,sensor_len_t sensor_len);
 
 
     /**
@@ -83,7 +86,7 @@ struct _sensor_panel_t{
      * @param[in] xfer_timeout_ms Wait timeout, in ms. Note: -1 means wait forever.
      * @return
      */
-    void (*transmit_receive)(sensor_panel_t *panel,const sensor_cmd_t* sensor_cmd);
+    void (*transmit_receive)(sensor_panel_t *panel,const sensor_size_t* sensor_cmd,sensor_len_t cmd_len,const sensor_size_t* sensor_data,sensor_len_t sensor_data_len);
 
     void *user_data;
 };

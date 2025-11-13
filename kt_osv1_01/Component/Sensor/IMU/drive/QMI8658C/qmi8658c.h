@@ -74,16 +74,10 @@
 #define QMI8658C_REG_RESET                   (0X60)/**/
 
 
-#define QMI8658C_SetReg_Define()                                                                            \
-{                                                                                                           \
-    {sensor_cmd_write,(uint8_t[]){QMI8658C_REG_RESET,0xb0},2,(uint8_t[]){0x60},0,100},/**CTRL1 */                               \
-    {sensor_cmd_write,(uint8_t[]){QMI8658C_REG_CTRL1,0x40},2,(uint8_t[]){0x60},0,100},/**CTRL1 */                               \
-    {sensor_cmd_write,(uint8_t[]){QMI8658C_REG_CTRL7,0x03},2,(uint8_t[]){0x43},0,100},/**CTRL7 启动加速度 启动陀螺仪*/            \
-    {sensor_cmd_write,(uint8_t[]){QMI8658C_REG_CTRL2,0x95},2,(uint8_t[]){0xB0},0,100},/**CTRL2 16g   7520(hz)*/                 \
-    {sensor_cmd_write,(uint8_t[]){QMI8658C_REG_CTRL3,0xd5},2,(uint8_t[]){0xF0},0,100},/**CTRL3 2048dps 7520(hz)*/               \ 
-}
 
-#define QMI8658C_CMD_NUM    5
+
+
+#define QMI8658C_CMD_NUM    4
 
 
 
@@ -91,8 +85,8 @@ typedef struct _qmi8658_io_panel_t qmi8658_io_panel_t;
 
 struct _qmi8658_io_panel_t{
     uint8_t address;
-    void (*transmit)(qmi8658_io_panel_t *panel,const sensor_cmd_t* sensor_cmd);
-    void (*transmit_receive)(qmi8658_io_panel_t *panel,const sensor_cmd_t* sensor_cmd);
+    void (*transmit)(qmi8658_io_panel_t *panel,const sensor_size_t* sensor_cmd,sensor_len_t sensor_len);
+    void (*transmit_receive)(qmi8658_io_panel_t *panel,const sensor_size_t* sensor_cmd,sensor_len_t cmd_len,const sensor_size_t* sensor_data,sensor_len_t sensor_data_len);
     void* user_data;
 };
 

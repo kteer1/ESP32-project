@@ -3,8 +3,8 @@
 #include "esp_log.h"
 #include "../drive/QMI8658C/qmi8658c.h"
 
-static void qmi8658c_transmit(qmi8658_io_panel_t *panel,const sensor_cmd_t* sensor_cmd);
-static void qmi8658c_transmit_receive(qmi8658_io_panel_t *panel,const  sensor_cmd_t* sensor_cmd);
+static void qmi8658c_transmit(qmi8658_io_panel_t *panel,const sensor_size_t* sensor_cmd,sensor_len_t cmd_len);
+static void qmi8658c_transmit_receive(qmi8658_io_panel_t *panel,const sensor_size_t* sensor_cmd,sensor_len_t cmd_len,const sensor_size_t* sensor_data,sensor_len_t sensor_data_len);
 
 // sensor_panel_t* qmi8568c_panel;
 /**------------------- */
@@ -39,13 +39,13 @@ sensor_panel_t* IMUporting_Init(void* param)
     i2c_master_dev_handle_t dev_handle;
     ESP_ERROR_CHECK(i2c_master_bus_add_device(bus_handle, &dev_cfg, &dev_handle));
     
-    
-    // uint8_t imu_id=0,imu_rev=0;
-    // i2c_master_bus_wait_all_done(bus_handle,-1);
-    // i2c_master_transmit_receive(dev_handle,(uint8_t[]){QMI8658C_REG_WHO_AM_I},1,&imu_id,1,-1);
-    // i2c_master_transmit_receive(dev_handle,(uint8_t[]){QMI8658C_REG_REVISION_ID},1,&imu_rev,1,-1);
-    // ESP_LOGI("imu_porting","imu_id=%d,imu_rev=%d",imu_id,imu_rev);
-
+#if 0
+    uint8_t imu_id=0,imu_rev=0;
+    i2c_master_bus_wait_all_done(bus_handle,-1);
+    i2c_master_transmit_receive(dev_handle,(uint8_t[]){QMI8658C_REG_WHO_AM_I},1,&imu_id,1,-1);
+    i2c_master_transmit_receive(dev_handle,(uint8_t[]){QMI8658C_REG_REVISION_ID},1,&imu_rev,1,-1);
+    ESP_LOGI("imu_porting","imu_id=%d,imu_rev=%d",imu_id,imu_rev);
+#endif
 
     /**获取IMU API 函数 */
     qmi8658_io_panel_t panel = {
@@ -64,13 +64,13 @@ sensor_panel_t* IMUporting_Init(void* param)
 }
 
 
-static void qmi8658c_transmit(qmi8658_io_panel_t *panel,const sensor_cmd_t* sensor_cmd)
+static void qmi8658c_transmit(qmi8658_io_panel_t *panel,const sensor_size_t* sensor_cmd,sensor_len_t cmd_len)
 {
-    i2c_master_transmit((i2c_master_dev_handle_t)panel->user_data,sensor_cmd->cmd,sensor_cmd->cmd_bytes,sensor_cmd->delay_ms);
+    i2c_master_transmit((i2c_master_dev_handle_t)panel->user_data,sensor_cmd,cmd_len,-1);
 }
 
-static void qmi8658c_transmit_receive(qmi8658_io_panel_t *panel,const sensor_cmd_t* sensor_cmd)
+static void qmi8658c_transmit_receive(qmi8658_io_panel_t *panel,const sensor_size_t* sensor_cmd,sensor_len_t cmd_len,const sensor_size_t* sensor_data,sensor_len_t sensor_data_len)
 {
 
-    i2c_master_transmit_receive((i2c_master_dev_handle_t)panel->user_data,sensor_cmd->cmd,sensor_cmd->cmd_bytes,sensor_cmd->data,sensor_cmd->data_bytes,sensor_cmd->delay_ms);
+    i2c_master_transmit_receive((i2c_master_dev_handle_t)panel->user_data,sensor_cmd,cmd_len,sensor_data,sensor_data_len,-1);
 }
