@@ -34,7 +34,10 @@
     "imu_porting.h": "c",
     "imu_bsp.h": "c",
     "qmi8658c.h": "c",
-    "cstdint": "c"
+    "cstdint": "c",
+    "gpio.h": "c",
+    "button_bsp.h": "c",
+    "freertos.h": "c"
   },
   "idf.openOcdConfigs": [
     "board/esp32s3-builtin.cfg"

@@ -224,13 +224,13 @@ static void touchpad_read(lv_indev_drv_t * indev_drv, lv_indev_data_t * data)
     ret = i2c_master_transmit_receive(fstruct_dev,(uint8_t[]){FT5x06_TOUCH_POINTS},1,&tp_cnt,1,-1);
     if(ret!= ESP_OK)
     {
-        ESP_LOGI(TAG,"lvgl touch error...1");
+        // ESP_LOGI(TAG,"lvgl touch error...1");
         return ;
     }
     ret = i2c_master_transmit_receive(fstruct_dev,(uint8_t[]){FT5x06_TOUCH1_XH},1,f_points_data,4,-1);
     if(ret!= ESP_OK)
     {
-        ESP_LOGI(TAG,"lvgl touch error...2");
+        // ESP_LOGI(TAG,"lvgl touch error...2");
         return ;
     }
     (tp_x) = (((uint16_t)f_points_data[0] & 0x0f) << 8) + f_points_data[1];

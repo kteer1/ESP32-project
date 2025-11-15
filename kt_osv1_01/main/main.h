@@ -8,6 +8,7 @@
 #include "../Component/IO_Expander/io_expander.h"
 #include "../Component/Sensor/IMU/imu.h"
 #include "../Component/WIFI/kwifi.h"
+#include "../Component/Button/button.h"
 
 #endif // MAIN_H
 

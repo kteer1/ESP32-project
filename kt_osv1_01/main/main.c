@@ -26,9 +26,12 @@ void app_main(void)
     app_bspinit();
     kWIFI_Init();
     IOExpander_Init();
+    
+    
     xTaskCreatePinnedToCore(lvgl_app,"lvgl_app",(1024*20),NULL,10,NULL,0);
     // IMUporting_Init();
-    imu_init(NULL);
+    // imu_init(NULL);
+    xTaskCreatePinnedToCore(Button_TaskHandle,"Button_TaskHandle",(1024*10),NULL,10,NULL,0);
     while(1)
     {
         vTaskDelay(1000/portTICK_PERIOD_MS);

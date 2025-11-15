@@ -5,6 +5,7 @@ file(GLOB_RECURSE SOURCES
                             "../Component/Sensor/IMU/*.c"
                             "../Component/Sensor/IMU/porting/*.c"
                             "../Component/WIFI/*.c"
+                            "../Component/Button/*.c"
                     )
 
 
@@ -17,6 +18,7 @@ set( INCLUDES
                     "../Component/Sensor/IMU"
                     "../Component/Sensor/IMU/porting"
                     "../Component/WIFI"
+                    "../Component/Button"
                     )
 
 idf_component_register(
